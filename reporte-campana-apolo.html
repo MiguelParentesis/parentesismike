@@ -1,0 +1,209 @@
+<title>Reporte Campaña Apolo — Parentesis Group</title>
+<style>
+  :root{
+    --ink:#14181f; --ink-soft:#4a5461; --line:#e4e7ec; --line-soft:#eef1f4;
+    --bg:#f4f5f7; --paper:#ffffff; --accent:#0f5d63; --accent-soft:#e6f1f1;
+    --good:#1f7a4d; --good-soft:#e7f4ec; --warn:#8a5a00; --warn-soft:#fbf1dc;
+    --bad:#a3282a; --bad-soft:#fbe9e9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+  .sheet{background:var(--paper);border:1px solid var(--line);border-radius:14px;
+    padding:44px 48px;margin-bottom:28px;box-shadow:0 1px 2px rgba(16,24,40,.04)}
+  .kick{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+    font-weight:700;margin:0 0 6px}
+  h1{font-size:27px;line-height:1.2;margin:0 0 4px;letter-spacing:-.01em}
+  h2{font-size:20px;margin:0 0 2px;letter-spacing:-.01em}
+  .sub{color:var(--ink-soft);font-size:14px;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 10px;margin:20px 0 4px}
+  .chip{font-size:12.5px;color:var(--ink-soft);background:var(--line-soft);
+    border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+  .chip b{color:var(--ink);font-weight:600}
+  .divider{height:1px;background:var(--line);margin:26px 0}
+  .lead{font-size:15.5px;color:var(--ink-soft);margin:0 0 4px}
+
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0 4px}
+  .kpi{border:1px solid var(--line);border-radius:11px;padding:15px 15px 14px;background:#fff}
+  .kpi .n{font-size:29px;font-weight:700;letter-spacing:-.02em;line-height:1}
+  .kpi .l{font-size:12.5px;color:var(--ink-soft);margin-top:7px}
+  .kpi.flag{background:var(--bad-soft);border-color:#f2cfcf}
+  .kpi.flag .n{color:var(--bad)}
+  .kpi.ok .n{color:var(--good)}
+
+  .band{display:flex;align-items:center;gap:14px;border-radius:11px;padding:14px 16px;margin:8px 0}
+  .band.good{background:var(--good-soft)}
+  .band.bad{background:var(--bad-soft)}
+  .dot{width:10px;height:10px;border-radius:50%;flex:none}
+  .dot.g{background:var(--good)} .dot.r{background:var(--bad)}
+  .band .t{font-weight:600;font-size:14.5px}
+  .band .d{color:var(--ink-soft);font-size:13.5px}
+
+  .funnel{margin:20px 0 6px}
+  .frow{display:grid;grid-template-columns:150px 1fr 54px;align-items:center;gap:12px;margin:9px 0}
+  .frow .fl{font-size:13.5px;color:var(--ink-soft)}
+  .track{background:var(--line-soft);border-radius:7px;height:26px;overflow:hidden}
+  .fill{height:100%;border-radius:7px;background:var(--accent);display:block}
+  .fill.mut{background:#9aa6b2}
+  .fill.red{background:var(--bad)}
+  .fv{font-size:13.5px;font-weight:600;text-align:right}
+
+  h3{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);
+    margin:26px 0 12px;font-weight:700}
+  .read li{margin:7px 0}
+  .read b{color:var(--ink)}
+
+  .change{border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0}
+  .change .h{display:flex;align-items:center;gap:10px;margin:0 0 8px}
+  .num{width:26px;height:26px;border-radius:8px;background:var(--accent);color:#fff;
+    font-weight:700;font-size:14px;display:grid;place-items:center;flex:none}
+  .change h4{margin:0;font-size:16.5px}
+  .change ul{margin:8px 0 0;padding-left:20px}
+  .change li{margin:6px 0;color:var(--ink-soft)}
+  .change li b{color:var(--ink)}
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);
+    border-radius:10px;overflow:hidden;margin-top:14px}
+  .ba > div{padding:12px 15px}
+  .ba .before{background:var(--bad-soft)}
+  .ba .after{background:var(--good-soft);border-left:1px solid var(--line)}
+  .ba .cap{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin:0 0 4px}
+  .ba .before .cap{color:var(--bad)} .ba .after .cap{color:var(--good)}
+  .ba p{margin:0;font-size:13.5px;color:var(--ink)}
+  .foot{color:#8894a2;font-size:12px;margin-top:26px;text-align:center}
+  @media (max-width:680px){
+    .sheet{padding:30px 22px}.kpis{grid-template-columns:repeat(2,1fr)}
+    .frow{grid-template-columns:110px 1fr 44px}.ba{grid-template-columns:1fr}
+    .ba .after{border-left:0;border-top:1px solid var(--line)}
+  }
+  @media print{
+    body{background:#fff}.wrap{padding:0;max-width:none}
+    .sheet{border:0;box-shadow:none;border-radius:0;page-break-after:always;padding:0 0 20px}
+  }
+</style>
+
+<div class="wrap">
+
+  <!-- ===================== HOJA 1 ===================== -->
+  <section class="sheet">
+    <p class="kick">Reporte de campaña · Parentesis Group</p>
+    <h1>Campaña Apolo — Resultados de la primera secuencia</h1>
+    <p class="sub">Prospección por correo · Segmento Industrial Monterrey</p>
+
+    <div class="meta">
+      <span class="chip"><b>Periodo:</b> 10 – 22 jul 2026</span>
+      <span class="chip"><b>Estatus:</b> En curso (aún quedan correos por enviar)</span>
+      <span class="chip"><b>Canal:</b> Correo · secuencia de 4 pasos</span>
+      <span class="chip"><b>Remitente:</b> miguel@parentesisgroup.mx</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="lead">Qué se hizo: se armó una secuencia automática de <b>4 correos</b> (uno cada 2 días)
+    dirigida a un grupo de prospectos del sector industrial en Monterrey. A continuación, los resultados
+    a la fecha.</p>
+
+    <div class="kpis">
+      <div class="kpi"><div class="n">36</div><div class="l">Personas contactadas</div></div>
+      <div class="kpi ok"><div class="n">98%</div><div class="l">Correos entregados (46 de 47)</div></div>
+      <div class="kpi"><div class="n">2.8%</div><div class="l">Tasa de rebote · 1 correo</div></div>
+      <div class="kpi flag"><div class="n">0</div><div class="l">Respuestas recibidas</div></div>
+    </div>
+
+    <div class="funnel">
+      <div class="frow">
+        <span class="fl">Correos enviados</span>
+        <div class="track"><span class="fill" style="width:100%"></span></div>
+        <span class="fv">47</span>
+      </div>
+      <div class="frow">
+        <span class="fl">Entregados</span>
+        <div class="track"><span class="fill" style="width:97.9%"></span></div>
+        <span class="fv">46</span>
+      </div>
+      <div class="frow">
+        <span class="fl">Rebotados</span>
+        <div class="track"><span class="fill red" style="width:2.1%;min-width:6px"></span></div>
+        <span class="fv">1</span>
+      </div>
+      <div class="frow">
+        <span class="fl">Respuestas</span>
+        <div class="track"><span class="fill mut" style="width:0%"></span></div>
+        <span class="fv">0</span>
+      </div>
+    </div>
+
+    <h3>Salud del correo</h3>
+    <div class="band good">
+      <span class="dot g"></span>
+      <div>
+        <div class="t">Cuenta sana — sin riesgo de reputación</div>
+        <div class="d">Cuenta activa, sin bloqueos por spam, sin bajas y con rebote por debajo del umbral de alerta (5%). El buzón entregó bien.</div>
+      </div>
+    </div>
+    <div class="band bad">
+      <span class="dot r"></span>
+      <div>
+        <div class="t">Sin tracción — 0 respuestas en 36 contactos</div>
+        <div class="d">La entrega funcionó, pero el mensaje no generó ninguna respuesta. La señal es de mensaje y/o público, no de un problema técnico.</div>
+      </div>
+    </div>
+
+    <h3>Lectura ejecutiva</h3>
+    <ul class="read">
+      <li><b>Lo que funcionó:</b> la parte técnica. Los correos llegaron (98% de entrega) y el buzón se mantiene sano.</li>
+      <li><b>Lo que no funcionó:</b> la conversión. Cero respuestas indica que el <b>contenido</b> y el <b>perfil de destinatario</b> no están conectando.</li>
+      <li><b>Contexto:</b> la campaña sigue activa y aún faltan pasos por enviar, pero la tendencia actual confirma que necesita ajustes antes de escalar.</li>
+    </ul>
+    <p class="sub" style="margin-top:14px">Nota: el rastreo de aperturas no estuvo activo en esta primera secuencia, por lo que las aperturas no son medibles. Se activará en la segunda campaña.</p>
+  </section>
+
+  <!-- ===================== HOJA 2 ===================== -->
+  <section class="sheet">
+    <p class="kick">Plan de acción</p>
+    <h1>Ajustes para la segunda campaña</h1>
+    <p class="sub">Dos cambios de fondo para pasar de “se entrega bien” a “nos contestan”.</p>
+
+    <div class="divider"></div>
+
+    <div class="change">
+      <div class="h"><span class="num">1</span><h4>Correos que suenen escritos por una persona</h4></div>
+      <p class="sub">Los textos actuales se leen como plantilla automatizada. Los reescribimos para que parezcan un correo real, de uno a uno.</p>
+      <ul>
+        <li><b>Más cortos y directos:</b> una sola idea y una sola pregunta por correo.</li>
+        <li><b>Tono humano:</b> lenguaje natural, cercano, sin frases de venta ni relleno.</li>
+        <li><b>Personalización real:</b> referencia concreta a la empresa o al rol, no solo el nombre.</li>
+        <li><b>Asunto sencillo:</b> como el de un correo normal entre colegas, no como anuncio.</li>
+      </ul>
+      <div class="ba">
+        <div class="before"><p class="cap">Antes</p><p>Correo largo, con tono de folleto, igual para todos.</p></div>
+        <div class="after"><p class="cap">Después</p><p>Correo breve, con una pregunta clara y un detalle propio de cada prospecto.</p></div>
+      </div>
+    </div>
+
+    <div class="change">
+      <div class="h"><span class="num">2</span><h4>Afinar a quién le escribimos (ICP)</h4></div>
+      <p class="sub">Hoy le apuntamos en buena parte a directores y dueños de empresas medianas: gente muy ocupada y con baja probabilidad de contestar un correo en frío.</p>
+      <ul>
+        <li><b>Nuevo objetivo:</b> perfiles más accesibles que <b>sí revisan su correo</b> pero que aún tienen peso en la decisión — gerentes, subdirectores y jefes de área (operación, mantenimiento, compras, planta).</li>
+        <li><b>El decisor final no desaparece:</b> lo dejamos como segundo contacto o en copia, no como puerta de entrada.</li>
+        <li><b>Objetivo:</b> abrir la conversación con quien puede responder e impulsar la decisión desde dentro.</li>
+      </ul>
+      <div class="ba">
+        <div class="before"><p class="cap">Antes</p><p>Director / dueño ocupado → rara vez abre o contesta.</p></div>
+        <div class="after"><p class="cap">Después</p><p>Mando con decisión operativa → responde y mueve el tema internamente.</p></div>
+      </div>
+    </div>
+
+    <h3>Qué esperamos lograr</h3>
+    <ul class="read">
+      <li>Pasar de <b>0 respuestas</b> a una primera bandeja de conversaciones abiertas.</li>
+      <li>Mantener la salud del correo que ya tenemos (entrega alta, rebote bajo).</li>
+      <li>Activar el rastreo de aperturas para poder medir y comparar contra esta primera secuencia.</li>
+    </ul>
+
+    <p class="foot">Parentesis Group · Reporte generado el 22 de julio de 2026 · Datos: Apollo</p>
+  </section>
+
+</div>
