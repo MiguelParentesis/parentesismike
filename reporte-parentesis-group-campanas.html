@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte de Campañas — Parentesis Group | De Marketing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* De Marketing brand palette */
+    --navy:#16273f; --navy-dark:#2e4769; --lime:#9be564;
+    --ink:#121212; --ink-soft:#808187; --line:#dddfe3; --line-soft:#eef0f3;
+    --bg:#f2f3f5; --paper:#ffffff; --accent:#16273f; --accent-soft:#e8ecf1;
+    --good:#2e7d4f; --good-soft:#eef8e6; --warn:#8a5a00; --warn-soft:#fbf1dc;
+    --bad:#a3282a; --bad-soft:#fbe9e9;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:'Inter',Arial,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,sans-serif;
+    font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:900px;margin:0 auto;padding:28px 20px 60px}
+  .sheet{background:var(--paper);border:1px solid var(--line);border-radius:14px;
+    margin-bottom:28px;box-shadow:0 1px 2px rgba(16,24,40,.04);overflow:hidden}
+
+  /* Brand bar */
+  .brandbar{background:var(--navy);display:flex;align-items:center;justify-content:space-between;
+    padding:14px 48px;gap:16px}
+  .brand-text{font-family:'Inter',Arial,sans-serif;font-weight:700;color:#fafafa;
+    font-size:15px;letter-spacing:3px;text-transform:uppercase;white-space:nowrap}
+  .brand-tag{font-family:'Inter',Arial,sans-serif;font-weight:600;color:var(--lime);
+    font-size:11px;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap}
+
+  .sheet-body{padding:40px 48px 44px}
+
+  .kick{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+    font-weight:700;margin:0 0 6px}
+  h1{font-size:27px;line-height:1.2;margin:0 0 4px;letter-spacing:-.01em;color:var(--navy);font-weight:700}
+  h2{font-size:20px;margin:0 0 2px;letter-spacing:-.01em;color:var(--navy);font-weight:700}
+  .sub{color:var(--ink-soft);font-size:14px;margin:0}
+  .meta{display:flex;flex-wrap:wrap;gap:8px 10px;margin:20px 0 4px}
+  .chip{font-size:12.5px;color:var(--ink-soft);background:var(--line-soft);
+    border:1px solid var(--line);border-radius:999px;padding:4px 11px}
+  .chip b{color:var(--ink);font-weight:600}
+  .divider{height:1px;background:var(--line);margin:26px 0}
+  .lead{font-size:15.5px;color:var(--ink-soft);margin:0 0 4px}
+
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0 4px}
+  .kpi{border:1px solid var(--line);border-radius:11px;padding:15px 15px 14px;background:#fff}
+  .kpi .n{font-size:29px;font-weight:800;letter-spacing:-.02em;line-height:1;color:var(--navy)}
+  .kpi .l{font-size:12.5px;color:var(--ink-soft);margin-top:7px}
+  .kpi.flag{background:var(--bad-soft);border-color:#f2cfcf}
+  .kpi.flag .n{color:var(--bad)}
+  .kpi.ok{background:var(--good-soft);border-color:#cfe8bd}
+  .kpi.ok .n{color:var(--good)}
+
+  .band{display:flex;align-items:center;gap:14px;border-radius:11px;padding:14px 16px;margin:8px 0}
+  .band.good{background:var(--good-soft)}
+  .band.bad{background:var(--bad-soft)}
+  .dot{width:10px;height:10px;border-radius:50%;flex:none}
+  .dot.g{background:var(--good)} .dot.r{background:var(--bad)}
+  .band .t{font-weight:600;font-size:14.5px}
+  .band .d{color:var(--ink-soft);font-size:13.5px}
+
+  .funnel{margin:20px 0 6px}
+  .frow{display:grid;grid-template-columns:150px 1fr 54px;align-items:center;gap:12px;margin:9px 0}
+  .frow .fl{font-size:13.5px;color:var(--ink-soft)}
+  .track{background:var(--line-soft);border-radius:7px;height:26px;overflow:hidden}
+  .fill{height:100%;border-radius:7px;background:var(--accent);display:block}
+  .fill.ok{background:var(--good)}
+  .fill.mut{background:#9aa6b2}
+  .fill.red{background:var(--bad)}
+  .fv{font-size:13.5px;font-weight:600;text-align:right}
+
+  h3{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--navy);
+    margin:26px 0 12px;font-weight:700;padding-bottom:7px;border-bottom:2px solid var(--lime);display:inline-block}
+  .read li{margin:7px 0}
+  .read b{color:var(--ink)}
+
+  .change{border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin:16px 0}
+  .change .h{display:flex;align-items:center;gap:10px;margin:0 0 8px}
+  .num{width:26px;height:26px;border-radius:8px;background:var(--navy);color:#fff;
+    font-weight:700;font-size:14px;display:grid;place-items:center;flex:none}
+  .change h4{margin:0;font-size:16.5px;color:var(--navy);font-weight:600}
+  .change ul{margin:8px 0 0;padding-left:20px}
+  .change li{margin:6px 0;color:var(--ink-soft)}
+  .change li b{color:var(--ink)}
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);
+    border-radius:10px;overflow:hidden;margin-top:14px}
+  .ba > div{padding:12px 15px}
+  .ba .before{background:var(--bad-soft)}
+  .ba .after{background:var(--good-soft);border-left:1px solid var(--line)}
+  .ba .cap{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin:0 0 4px}
+  .ba .before .cap{color:var(--bad)} .ba .after .cap{color:var(--good)}
+  .ba p{margin:0;font-size:13.5px;color:var(--ink)}
+
+  /* Touches / sequence flow */
+  .touch{display:grid;grid-template-columns:30px 1fr;gap:13px;align-items:start;
+    padding:13px 0;border-bottom:1px solid var(--line-soft)}
+  .touch:last-child{border-bottom:0}
+  .touch .tn{width:30px;height:30px;border-radius:50%;background:var(--accent-soft);
+    color:var(--navy);font-weight:700;font-size:14px;display:grid;place-items:center}
+  .touch .tt{font-weight:600;color:var(--navy);font-size:14.5px}
+  .touch .td{color:var(--ink-soft);font-size:13.5px;margin-top:2px}
+  .touch .tday{display:inline-block;font-size:11px;font-weight:700;color:var(--good);
+    background:var(--good-soft);border-radius:999px;padding:1px 8px;margin-left:7px;vertical-align:middle}
+
+  .foot{color:var(--ink-soft);font-size:12px;margin-top:26px;text-align:center}
+  .foot b{color:var(--navy);font-weight:700;letter-spacing:1px}
+  @media (max-width:680px){
+    .brandbar{padding:12px 22px}
+    .sheet-body{padding:30px 22px}.kpis{grid-template-columns:repeat(2,1fr)}
+    .frow{grid-template-columns:110px 1fr 44px}.ba{grid-template-columns:1fr}
+    .ba .after{border-left:0;border-top:1px solid var(--line)}
+  }
+  @media print{
+    body{background:#fff}.wrap{padding:0;max-width:none}
+    .sheet{border:0;box-shadow:none;border-radius:0;page-break-after:always;margin:0}
+    .sheet-body{padding:0 0 20px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ===================== HOJA 1 — LO QUE SE HIZO ===================== -->
+  <section class="sheet">
+    <div class="brandbar">
+      <span class="brand-text">De Marketing</span>
+      <span class="brand-tag">Reporte de campaña</span>
+    </div>
+    <div class="sheet-body">
+      <p class="kick">Reporte de campaña · Parentesis Group</p>
+      <h1>Campaña anterior — Resultados de la primera secuencia</h1>
+      <p class="sub">Prospección por correo · Segmento Industrial Monterrey</p>
+
+      <div class="meta">
+        <span class="chip"><b>Periodo:</b> 10 – 22 jul 2026</span>
+        <span class="chip"><b>Estatus:</b> Cerrada para lectura (base de aprendizaje)</span>
+        <span class="chip"><b>Canal:</b> Correo · secuencia de 4 pasos</span>
+        <span class="chip"><b>Remitente:</b> miguel@parentesisgroup.mx</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <p class="lead">Qué se hizo: se armó una secuencia automática de <b>4 correos</b> (uno cada 2 días)
+      dirigida a un grupo de prospectos del sector industrial en Monterrey. A continuación, los resultados
+      a la fecha.</p>
+
+      <div class="kpis">
+        <div class="kpi"><div class="n">36</div><div class="l">Personas contactadas</div></div>
+        <div class="kpi ok"><div class="n">98%</div><div class="l">Correos entregados (46 de 47)</div></div>
+        <div class="kpi"><div class="n">2.8%</div><div class="l">Tasa de rebote · 1 correo</div></div>
+        <div class="kpi flag"><div class="n">0</div><div class="l">Respuestas recibidas</div></div>
+      </div>
+
+      <div class="funnel">
+        <div class="frow">
+          <span class="fl">Correos enviados</span>
+          <div class="track"><span class="fill" style="width:100%"></span></div>
+          <span class="fv">47</span>
+        </div>
+        <div class="frow">
+          <span class="fl">Entregados</span>
+          <div class="track"><span class="fill ok" style="width:97.9%"></span></div>
+          <span class="fv">46</span>
+        </div>
+        <div class="frow">
+          <span class="fl">Rebotados</span>
+          <div class="track"><span class="fill red" style="width:2.1%;min-width:6px"></span></div>
+          <span class="fv">1</span>
+        </div>
+        <div class="frow">
+          <span class="fl">Respuestas</span>
+          <div class="track"><span class="fill mut" style="width:0%"></span></div>
+          <span class="fv">0</span>
+        </div>
+      </div>
+
+      <h3>Salud del correo</h3>
+      <div class="band good">
+        <span class="dot g"></span>
+        <div>
+          <div class="t">Cuenta sana — sin riesgo de reputación</div>
+          <div class="d">Cuenta activa, sin bloqueos por spam, sin bajas y con rebote por debajo del umbral de alerta (5%). El buzón entregó bien.</div>
+        </div>
+      </div>
+      <div class="band bad">
+        <span class="dot r"></span>
+        <div>
+          <div class="t">Sin tracción — 0 respuestas en 36 contactos</div>
+          <div class="d">La entrega funcionó, pero el mensaje no generó ninguna respuesta. La señal es de mensaje y/o público, no de un problema técnico.</div>
+        </div>
+      </div>
+
+      <h3>Lectura ejecutiva</h3>
+      <ul class="read">
+        <li><b>Lo que funcionó:</b> la parte técnica. Los correos llegaron (98% de entrega) y el buzón se mantiene sano.</li>
+        <li><b>Lo que no funcionó:</b> la conversión. Cero respuestas indica que el <b>contenido</b> y el <b>perfil de destinatario</b> no están conectando.</li>
+        <li><b>Aprendizaje:</b> la base técnica está lista para escalar; lo que hay que rehacer es el mensaje y a quién se le manda.</li>
+      </ul>
+      <p class="sub" style="margin-top:14px">Nota: el rastreo de aperturas no estuvo activo en esta primera secuencia, por lo que las aperturas no son medibles. Se activa en la nueva campaña.</p>
+    </div>
+  </section>
+
+  <!-- ===================== HOJA 2 — LO QUE SE VA A HACER ===================== -->
+  <section class="sheet">
+    <div class="brandbar">
+      <span class="brand-text">De Marketing</span>
+      <span class="brand-tag">Plan de acción</span>
+    </div>
+    <div class="sheet-body">
+      <p class="kick">Nueva campaña · Parentesis Group</p>
+      <h1>La nueva campaña — qué vamos a hacer diferente</h1>
+      <p class="sub">De “se entrega bien” a “nos contestan”: copy más humano, un público que sí responde y todo medible.</p>
+
+      <div class="meta">
+        <span class="chip"><b>Objetivo:</b> agendar reuniones</span>
+        <span class="chip"><b>Meta:</b> 50 empresas nuevas / mes</span>
+        <span class="chip"><b>Envío:</b> lun–vie, por la mañana</span>
+        <span class="chip"><b>Estatus:</b> Lista, pendiente de aprobar</span>
+      </div>
+
+      <div class="divider"></div>
+
+      <p class="lead">La secuencia ya está construida y en pausa. Estos son los cambios de fondo respecto
+      a la campaña anterior, listos para arrancar en cuanto se apruebe.</p>
+
+      <div class="change">
+        <div class="h"><span class="num">1</span><h4>Correos que suenen escritos por una persona</h4></div>
+        <p class="sub">Los textos anteriores se leían como plantilla automatizada. Los reescribimos para que parezcan un correo real, de uno a uno, y con una firma con nombre y cara.</p>
+        <ul>
+          <li><b>Más cortos y directos:</b> una sola idea y una sola pregunta por correo.</li>
+          <li><b>Tono humano:</b> lenguaje natural, cercano, sin frases de venta ni relleno.</li>
+          <li><b>Los seguimientos van en el mismo hilo:</b> se ve como una conversación, no como anuncios sueltos.</li>
+          <li><b>Firma real:</b> los correos van firmados por <b>Miguel Cantú</b>, no de forma anónima.</li>
+        </ul>
+        <div class="ba">
+          <div class="before"><p class="cap">Antes</p><p>Correo largo, con tono de folleto, igual para todos.</p></div>
+          <div class="after"><p class="cap">Después</p><p>Correo breve, con una pregunta clara y firmado por una persona.</p></div>
+        </div>
+      </div>
+
+      <div class="change">
+        <div class="h"><span class="num">2</span><h4>Afinar a quién le escribimos (ICP)</h4></div>
+        <p class="sub">Antes le apuntábamos en buena parte a directores y dueños: gente muy ocupada y con baja probabilidad de contestar un correo en frío.</p>
+        <ul>
+          <li><b>Nuevo objetivo:</b> mandos de <b>Recursos Humanos y Operaciones</b> — gerentes, subdirectivos y jefes de área — que sí revisan su correo y aún tienen peso en la decisión.</li>
+          <li><b>Empresas:</b> medianas del sector industrial en Monterrey y su área metropolitana (51 a 500 empleados).</li>
+          <li><b>Solo correos verificados:</b> para cuidar la entrega y bajar aún más el rebote.</li>
+        </ul>
+        <div class="ba">
+          <div class="before"><p class="cap">Antes</p><p>Director / dueño ocupado → rara vez abre o contesta.</p></div>
+          <div class="after"><p class="cap">Después</p><p>Mando de RH / Operaciones → responde y mueve el tema internamente.</p></div>
+        </div>
+      </div>
+
+      <div class="change">
+        <div class="h"><span class="num">3</span><h4>Cómo se ve la nueva secuencia</h4></div>
+        <p class="sub">Cuatro correos con un propósito claro cada uno, a lo largo de unas dos semanas.</p>
+        <div class="touch">
+          <span class="tn">1</span>
+          <div><span class="tt">Apertura</span><span class="tday">Día 0</span>
+            <div class="td">Presentación breve y cálida. Nos damos a conocer y proponemos una charla corta.</div></div>
+        </div>
+        <div class="touch">
+          <span class="tn">2</span>
+          <div><span class="tt">Propuesta y por qué importa</span><span class="tday">Día 3</span>
+            <div class="td">Qué ofrecemos, sus alcances y el valor real para su equipo.</div></div>
+        </div>
+        <div class="touch">
+          <span class="tn">3</span>
+          <div><span class="tt">El recordatorio clave</span><span class="tday">Día 7</span>
+            <div class="td">El correo más importante: genera urgencia (cupos/fechas) sin presionar, para invitar a responder.</div></div>
+        </div>
+        <div class="touch">
+          <span class="tn">4</span>
+          <div><span class="tt">Cierre amable</span><span class="tday">Día 12</span>
+            <div class="td">Nos despedimos con cortesía y dejamos la puerta abierta para retomar más adelante.</div></div>
+        </div>
+      </div>
+
+      <h3>Qué esperamos lograr</h3>
+      <ul class="read">
+        <li>Pasar de <b>0 respuestas</b> a una primera bandeja de conversaciones y reuniones agendadas.</li>
+        <li>Contactar <b>50 empresas nuevas cada mes</b> de forma sostenida (ritmo de 10 correos al día).</li>
+        <li>Mantener la salud del correo que ya tenemos: entrega alta y rebote bajo.</li>
+        <li>Activar el <b>rastreo de aperturas</b> para medir y comparar contra la campaña anterior.</li>
+      </ul>
+
+      <p class="foot">Preparado por <b>De Marketing</b> · Departamento de Marketing Estratégico Externo · demarketing.mx<br>
+      Parentesis Group · Reporte generado el 22 de julio de 2026 · Datos: Apollo</p>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>
